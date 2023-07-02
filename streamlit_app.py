@@ -17,7 +17,7 @@ streamlit.text('🥑🍞 Avocado Toast')
 streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
 
  # Let's put a pick list here so they can pick the fruit they want to include   -- # Choose a Few Fruits to Set a Good Example 
-streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index), ['Avocado', 'Strawberries']) #here avocado and strawberries will always appear as default
+fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index), ['Avocado', 'Strawberries']) #here avocado and strawberries will always appear as default
 fruits_to_show = my_fruit_list.loc[fruits_selected] # make the table smaller depending on the selection of fruits
 
 # Display the table on the page.
