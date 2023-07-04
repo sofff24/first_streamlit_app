@@ -29,8 +29,11 @@ streamlit.dataframe(fruits_to_show)
 # New section to display fruitvice api response
 streamlit.header("Fruityvice Fruit Advice!")
 
-fruit_choice_2 = streamlit.multiselect("What fruit would you like information about?", list(my_fruit_list.index), ['Kiwi']) #here Kiwi will always appear as default
-fruits_to_show = my_fruit_list.loc[fruit_choice_2] # make the table smaller depending on the selection of fruits
+# Allow the end user to add a fruit to the list
+
+# Let's put a pick list here so they can pick the fruit they want to include 
+add_fruits = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index),['Kiwi'])
+fruits_to_show = my_fruit_list.loc[add_fruits] # make the table smaller depending on the selection of fruits
 
 
 
