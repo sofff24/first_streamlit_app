@@ -54,35 +54,61 @@ except URLError as e:
  streamlit.error()
 
 
+##########################################
+# old #
+# streamlit.stop()
+
+# my_cnx = snowflake.connector.connect(
+#     account=streamlit.secrets["snowflake"]["account"],
+#     user=streamlit.secrets["snowflake"]["user"],
+#     password=streamlit.secrets["snowflake"]["password"],
+#     warehouse="PC_RIVERY_WH"  # Specify the warehouse here
+# )
+
+# my_cur = my_cnx.cursor()
 
 
-streamlit.stop()
 
-my_cnx = snowflake.connector.connect(
+# my_cur.execute("SELECT * FROM PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST")
+# my_data_rows = my_cur.fetchall()
+# streamlit.header("The fruit load list contains:")
+# streamlit.dataframe(my_data_rows)
+
+
+# add_my_fruit = streamlit.text_input('What fruit would you like to add?','jackfruit')
+# streamlit.write('Thanks for adding ', add_my_fruit)
+
+
+
+######################################
+# new #
+streamlit.header("The fruit load list contains:")
+# Snowflake-related functions
+def get_fruit_list():
+ with my_cnx.cursor() as my_cur:
+  
+  my_cur = snowflake.connector.connect(
     account=streamlit.secrets["snowflake"]["account"],
     user=streamlit.secrets["snowflake"]["user"],
     password=streamlit.secrets["snowflake"]["password"],
-    warehouse="PC_RIVERY_WH"  # Specify the warehouse here
-)
-
-my_cur = my_cnx.cursor()
-
-
-
-my_cur.execute("SELECT * FROM PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST")
-my_data_rows = my_cur.fetchall()
-streamlit.header("The fruit load list contains:")
-streamlit.dataframe(my_data_rows)
+    warehouse="PC_RIVERY_WH")
+  
+  my_cur.execute("SELECT * FROM PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST")
+   return my_cur.fetchall()
 
 
-add_my_fruit = streamlit.text_input('What fruit would you like to add?','jackfruit')
-streamlit.write('Thanks for adding ', add_my_fruit)
+# Add a button to load the fruit
+if streamlit.button('Get Fruit Load List:')
+ my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+ my_data_rows = get_fruit_list()
+ streamlit.dataframe(my_data_rows)
 
 
+#############################3
 
 # this will not work correctly, but just go with it for now
-my_cur = my_cnx.cursor()
-my_cur.execute("insert into fruit_load_list values ('from streamlit')")
+# my_cur = my_cnx.cursor()
+# my_cur.execute("insert into fruit_load_list values ('from streamlit')")
 
 
 
