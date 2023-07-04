@@ -54,6 +54,12 @@ my_cnx = snowflake.connector.connect(
 )
 
 my_cur = my_cnx.cursor()
+
+
+# Grant privileges on the FRUIT_LOAD_LIST table to the appropriate role or user
+my_cur.execute("GRANT SELECT, INSERT ON TABLE PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST TO ROLE pc_rivery_role")
+
+
 my_cur.execute("SELECT * FROM PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST")
 my_data_rows = my_cur.fetchall()
 streamlit.header("The fruit load list contains:")
