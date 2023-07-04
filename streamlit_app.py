@@ -92,7 +92,7 @@ def get_fruit_list():
     password=streamlit.secrets["snowflake"]["password"],
     warehouse="PC_RIVERY_WH")
   my_cur.execute("SELECT * FROM PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST")
-   return my_cur.fetchall()
+ return my_cur.fetchall()
 
 
 # Add a button to load the fruit
