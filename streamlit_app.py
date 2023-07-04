@@ -43,7 +43,14 @@ streamlit.dataframe(fruityvice_normalized)
 
 import snowflake.connector
 
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+# my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+my_cnx = snowflake.connector.connect(
+    account=streamlit.secrets["snowflake"]["account"],
+    user=streamlit.secrets["snowflake"]["user"],
+    password=streamlit.secrets["snowflake"]["password"],
+    warehouse="PC_RIVERY_WH"  # Specify the warehouse here
+)
+
 my_cur = my_cnx.cursor()
 # my_cur.execute("USE WAREHOUSE PC_RIVERY_WH SELECT * FROM PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST")
 my_cur.execute("SELECT * FROM PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST")
