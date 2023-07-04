@@ -95,7 +95,8 @@ def insert_row_snowflake(new_fruit):
     account=streamlit.secrets["snowflake"]["account"],
     user=streamlit.secrets["snowflake"]["user"],
     password=streamlit.secrets["snowflake"]["password"],
-    warehouse="PC_RIVERY_WH")
+    warehouse="PC_RIVERY_WH",
+    role="pc_rivery_role" )
  my_cur = my_cnx.cursor()
  my_cur.execute("insert into fruit_load_list values ('from streamlit')")
  return "Thanks for adding" + new_fruit
